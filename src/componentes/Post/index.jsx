@@ -1,18 +1,27 @@
 import Comentarios from '../Comentarios'
 import styles from './Post.module.css'
 
-export default function Post() {
+export default function Post({author, publishedAt}) {
+    const publishedDateFormatted = new Intl.DateTimeFormat('pt-BR', {
+        day: '2-digit',
+        month: 'long',
+        hour: '2-digit',
+        minute: '2-digit',
+      }).format(publishedAt)
+
     return (
         <article className={styles.post}>
             <header>
                 <div className={styles.author}>
-                <img src="https://cdn.pixabay.com/photo/2024/06/25/13/12/woman-8852664_640.jpg" />
+                    <img src={author.avatarUrl} />
+
                     <div className={styles.authorInfo}>
-                        <strong>Elias de souza</strong>
-                        <span>Web Developer</span>
+                        
+                        <strong> {author.name} </strong>
+                        <span>{author.role}</span>
                     </div>
                 </div>
-                <time title='11 de maio às 08:13' dateTime='2022-05-11 14:19:30'>Publicado há 1h</time>
+                <time title='11 de maio às 08:13' dateTime='2022-05-11 14:19:30'>{publishedDateFormatted}</time>
             </header>
             <div className={styles.content}>
                 <p>Fala galera</p>
@@ -29,9 +38,9 @@ export default function Post() {
                     <button type='submit'>Publicar</button>
                 </footer>
             </form>
-            <Comentarios/>
-            <Comentarios/>
-            <Comentarios/>
+            <Comentarios />
+            <Comentarios />
+            <Comentarios />
         </article>
     )
 }
