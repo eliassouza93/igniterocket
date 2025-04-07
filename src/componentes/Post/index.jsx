@@ -1,5 +1,4 @@
 import { formatDistanceToNow } from 'date-fns'
-import Comentarios from '../Comentarios'
 import styles from './Post.module.css'
 import { useState } from 'react'
 import Comment from './Comets/Coment'
@@ -12,16 +11,20 @@ export default function Post({ author, publishedAt, }) {
         minute: '2-digit',
     }).format(publishedAt)
 
+    const [comentarios, setComentarios] = useState([])
 
-
-    const [comentarios, setComentarios] = useState(['Post muit bacana, hein?'])
+    const [novoComentarioTexto, setNovoComentarioTexto] = useState('')
 
     function criarNovoComentario(event) {
         event.preventDefault()
         const novoComentarioTexto = event.target.coment.value
-        setComentarios([...comentarios, novoComentarioTexto])
+        setComentarios([...comentarios, setNovoComentarioTexto])
+        setNovoComentarioTexto('')
 
-        event.target.coment.value = ''
+    }
+    function novoComntario(event) {
+        setNovoComentarioTexto(event.target.value)
+
 
 
     }
@@ -40,7 +43,11 @@ export default function Post({ author, publishedAt, }) {
 
             <form onSubmit={criarNovoComentario} className={styles.commentForm}>
                 <strong>Deixe seu feedback</strong>
-                <textarea name='coment' placeholder='Deixe um comentário' />
+                <textarea
+                    name='coment'
+                    value={novoComentarioTexto}
+                    placeholder='Deixe um comentário'
+                    onChange={novoComntario} />
 
                 <footer>
                     <button type='submit'>Publicar</button>
@@ -49,8 +56,8 @@ export default function Post({ author, publishedAt, }) {
             </form>
             <div className={styles.content}>
 
-                {comentarios.map(coment => {
-                    return <Comment content={coment} />
+                {comentarios.map((coment, index) => {
+                    return <Comment key={index} content={coment} />
                 })}
 
             </div>
