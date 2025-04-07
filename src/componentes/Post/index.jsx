@@ -37,8 +37,10 @@ export default function Post({ author, publishedAt }) {
       comentario => comentario.id !== idParaDeletar
     );
     setComentarios(comentariosAtualizados);
-   
- 
+  }
+  function comentarioInvalido (event) {
+    event.target.setCustomValidity('')
+    setNovoComentarioTexto(event.target.value)
   }
 
   return (
@@ -60,7 +62,9 @@ export default function Post({ author, publishedAt }) {
           name="coment"
           value={novoComentarioTexto}
           placeholder="Deixe um comentário"
+          onInvalid={comentarioInvalido}
           onChange={novoComentario}
+          required
         />
         <footer>
           <button type="submit">Publicar</button>
