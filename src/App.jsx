@@ -37,17 +37,17 @@ const posts = [
 
 function App() {
   return (
-    <div>
-    <Header />
-    <div className={styles.wrapper}>
-      <Sidebar />
-      <main>
-        {posts.map((post) => (
-          <Post key={post.id} author={post.author} />
-        ))}
-      </main>
+     <div>
+      <Header />
+      <div className={styles.wrapper}>
+        <Sidebar />
+        <main>
+          {posts.map((post) => (
+            <Post key={post.id} author={post.author} />
+          ))}
+        </main>
+      </div>
     </div>
-  </div>
   )
 }
 
